@@ -1,0 +1,16 @@
+<div class="popup">
+  <div class="popup-wrapper">
+    <div class="popup-header">
+      <div>
+        {{caption}}
+      </div>
+      <button (click)="cancel.emit(true)">x</button>
+    </div>
+    <div class="popup-body">
+      <ng-content></ng-content>
+    </div>
+
+  </div>
+
+
+</div>

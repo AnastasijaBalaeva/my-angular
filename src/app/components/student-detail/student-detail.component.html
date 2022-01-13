@@ -1,0 +1,20 @@
+<div *ngIf="student">
+  <h2>{{student.surname| uppercase}} {{student.name| uppercase}} {{student.patronymic| uppercase}}</h2>
+  <div><span>id: </span>{{student.id}}</div>
+  <div>
+    <label for="student-surname">Фамилия: </label>
+    <input id="student-surname" [(ngModel)]="student.surname" placeholder="Фамилия"/>
+  </div>
+  <div>
+    <label for="student-name">Имя: </label>
+    <input id="student-name" [(ngModel)]="student.name" placeholder="Имя"/>
+  </div>
+  <div>
+    <label for="student-patronymic">Отчество: </label>
+    <input id="student-patronymic" [(ngModel)]="student.patronymic" placeholder="Отчество"/>
+  </div>
+  <div><span>Дата рождения: </span>{{student.dateBirth}}</div>
+  <div><span>Средний балл: </span>{{student.avgScore}}</div>
+  <button (click)="goBack()">Вернуться назад</button>
+  <button (click)="save()">Сохранить изменения</button>
+</div>

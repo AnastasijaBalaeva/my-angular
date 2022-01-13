@@ -1,0 +1,18 @@
+<h2>Мои студенты</h2>
+<ul class="students">
+  <li *ngFor="let student of students">
+    <a routerLink="/detail/{{student.id}}">
+      <span class="badge">{{student.id}}</span> {{student.surname}} {{student.name}} {{student.patronymic}}
+    </a>
+    <button class="edit" (click)="edit(student)">Редактировать</button>
+    <button class="delete" title="delete student"
+            (click)="delete(student)">x
+    </button>
+  </li>
+</ul>
+<button (click)="add()">Добавить студента</button>
+<app-popup *ngIf="popupVisible" [caption]="'Добавить'" (cancel)="popupVisible = false">
+  <app-add-student [student]="student" (submitted)="addOrUpdate($event)"></app-add-student>
+</app-popup>
+
+
