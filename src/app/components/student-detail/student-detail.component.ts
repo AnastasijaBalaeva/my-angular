@@ -6,7 +6,7 @@ import { StudentService } from '../../services/student.service';
 @Component({
   selector: 'app-student-detail',
   templateUrl: './student-detail.component.html',
-  styleUrls: ['./student-detail.component.css']
+  styleUrls: ['./student-detail.component.less']
 })
 export class StudentDetailComponent implements OnInit {
 

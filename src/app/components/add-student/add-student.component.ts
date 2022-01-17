@@ -14,7 +14,7 @@ import {
 @Component({
   selector: 'app-add-student',
   templateUrl: './add-student.component.html',
-  styleUrls: ['./add-student.component.css']
+  styleUrls: ['./add-student.component.less']
 })
 export class AddStudentComponent implements OnInit, OnChanges {
 

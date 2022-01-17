@@ -1,13 +1,24 @@
 <div class="filter">
-  <div *ngIf="type === 'date'" class="filter-date">
-    <div class="filter-title">{{title}}</div>
-    <label class="filter-label">
-      От
-      <input [type]="type === 'date' ? 'date' : 'number'" class="filter-input"/>
-    </label>
-    <label class="filter-label">
-      До
-      <input [type]="type === 'date' ? 'date' : 'number'" class="filter-input"/>
-    </label>
-  </div>
+  <form [formGroup]="form">
+    <div *ngIf="title" class="filter-title">{{title}}</div>
+    <div class="filter-row">
+      <label class="filter-label">
+        <input
+          formControlName="from"
+          [type]="type === 'date' ? 'date' : 'number'"
+          class="filter-input"
+          (input)="submitValue()"
+        />
+      </label>
+      <span class="filter-separator">-</span>
+      <label class="filter-label">
+        <input
+          formControlName="to"
+          [type]="type === 'date' ? 'date' : 'number'"
+          class="filter-input"
+          (input)="submitValue()"
+        />
+      </label>
+    </div>
+  </form>
 </div>
