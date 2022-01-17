@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddStudentComponent } from './components/add-student/add-student.component';
 import { SortStudentsComponent } from './components/sort-students/sort-students.component';
 import { PopupComponent } from './components/popup/popup.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PopupComponent } from './components/popup/popup.component';
     StudentDetailComponent,
     AddStudentComponent,
     SortStudentsComponent,
-    PopupComponent
+    PopupComponent,
+    FilterComponent
   ],
   imports: [
     HttpClientModule,

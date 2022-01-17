@@ -11,8 +11,10 @@ import {StudentService} from '../../services/student.service';
 export class StudentsComponent implements OnInit {
 
   students: Student[] = [];
+  studentsList: Student[] = [];
   student: Student;
   popupVisible: boolean = false;
+  deleteStudent: Student;
 
   constructor(private studentService: StudentService) {
   }
@@ -22,12 +24,19 @@ export class StudentsComponent implements OnInit {
   }
 
   getStudents(): void {
-    this.studentService.getStudents().subscribe(students => this.students = students);
+    this.studentService.getStudents().subscribe(students => {
+      this.students = students;
+      this.studentsList = students;
+    });
   }
 
-  delete(student: Student): void {
-    this.students = this.students.filter(h => h !== student);
-    this.studentService.deleteStudent(student.id as number).subscribe();
+  delete(event: boolean): void {
+    if (event) {
+      this.students = this.students.filter(h => h.id !== this.deleteStudent.id);
+      this.studentService.deleteStudent(this.deleteStudent.id as number).subscribe(() => this.deleteStudent = null);
+    } else {
+      this.deleteStudent = null;
+    }
   }
 
 
@@ -51,6 +60,18 @@ export class StudentsComponent implements OnInit {
       })
     } else {
       this.studentService.addStudent(student).subscribe(() => this.popupVisible = false);
+    }
+  }
+
+  filterStudents(value: {from: string, to: string}, type: string): void {
+    if (type === 'date') {
+      this.students = this.studentsList.filter(student => {
+        return (student.dateBirth > new Date(value.from) && student.dateBirth < new Date(value.to)) || !value.from && !value.to;
+      })
+    } else if (type === 'number') {
+      this.students = this.studentsList.filter(student => {
+        return (student.avgScore > +value.from && student.avgScore < +value.to) || !value.from && !value.to;
+      })
     }
   }
 }

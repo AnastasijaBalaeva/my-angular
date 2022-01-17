@@ -1,0 +1,13 @@
+<div class="filter">
+  <div *ngIf="type === 'date'" class="filter-date">
+    <div class="filter-title">{{title}}</div>
+    <label class="filter-label">
+      От
+      <input [type]="type === 'date' ? 'date' : 'number'" class="filter-input"/>
+    </label>
+    <label class="filter-label">
+      До
+      <input [type]="type === 'date' ? 'date' : 'number'" class="filter-input"/>
+    </label>
+  </div>
+</div>

@@ -10,7 +10,7 @@ export class PopupComponent implements OnInit {
   @Input() confirmText: string = "Принять";
   @Input() cancelText: string = "Отменить";
 
-  @Output() cancel: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() submit: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor() { }
 
   ngOnInit(): void {
