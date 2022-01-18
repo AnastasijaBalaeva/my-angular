@@ -1,19 +1,17 @@
 <div class="popup">
   <div class="popup-wrapper">
     <div class="popup-header">
-      <div>
+      <div class="popup-caption">
         {{caption}}
       </div>
-      <button (click)="submit.emit(false)">x</button>
+      <button class="button-close" (click)="submit.emit(false)">x</button>
     </div>
     <div class="popup-body">
       <ng-content></ng-content>
     </div>
     <div class="popup-footer" *ngIf="confirmText || cancelText">
-      <button class="popup-footer-confirm" (click)="submit.emit(true)">{{confirmText}}</button>
-      <button class="popup-footer-cancel" (click)="submit.emit(false)">{{cancelText}}</button>
+      <button class="button" (click)="submit.emit(true)">{{confirmText}}</button>
+      <button class="button" (click)="submit.emit(false)">{{cancelText}}</button>
     </div>
   </div>
-
-
 </div>

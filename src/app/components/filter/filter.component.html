@@ -1,5 +1,5 @@
 <div class="filter">
-  <div *ngIf="title" class="filter-title">{{title}}</div>
+  <h3 class="filter-title">Фильтры</h3>
   <div class="filter-row" [formGroup]="dateForm">
     <div class="filter-title">
       По дате
@@ -9,7 +9,7 @@
         <input
           formControlName="from"
           type="date"
-          class="filter-input"
+          class="form-input filter-input"
           (input)="filterStudents()"
         />
       </label>
@@ -18,7 +18,7 @@
         <input
           formControlName="to"
           type="date"
-          class="filter-input"
+          class="form-input filter-input"
           (input)="filterStudents()"
         />
       </label>
@@ -33,7 +33,7 @@
         <input
           formControlName="from"
           type="number"
-          class="filter-input"
+          class="form-input filter-input"
           (input)="filterStudents()"
         />
       </label>
@@ -42,11 +42,11 @@
         <input
           formControlName="to"
           type="number"
-          class="filter-input"
+          class="form-input filter-input"
           (input)="filterStudents()"
         />
       </label>
     </div>
   </div>
-  <button class="filter-clear" (click)="clear()">Очистить</button>
+  <button class="filter-clear button" (click)="clear()">Очистить</button>
 </div>

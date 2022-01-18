@@ -1,25 +1,23 @@
-<h2>Добавить студента</h2>
-
-<div>
+<div class="add-student">
   <form [formGroup]="form">
-    <label>
-      <input type="text" formControlName="name" placeholder="Имя"/>
+    <label class="add-student-label form-label">
+      <input class="form-input" type="text" formControlName="name" placeholder="Имя"/>
     </label>
-    <label>
-      <input type="text" formControlName="surname" placeholder="Фамилия"/>
+    <label class="add-student-label form-label">
+      <input class="form-input" type="text" formControlName="surname" placeholder="Фамилия"/>
     </label>
-    <label>
-      <input type="text" formControlName="studentPatronymic" placeholder="Отчество"/>
+    <label class="add-student-label form-label">
+      <input class="form-input" type="text" formControlName="studentPatronymic" placeholder="Отчество"/>
     </label>
-    <label>
-      <input type="date" formControlName="studentDateBirth" placeholder="Дата рождения"/>
+    <label class="add-student-label form-label">
+      <input class="form-input" type="date" formControlName="studentDateBirth" placeholder="Дата рождения"/>
     </label>
-    <label>
-      <input type="text" formControlName="studentAvgScore" placeholder="Средний балл"/>
+    <label class="add-student-label form-label">
+      <input class="form-input" type="text" formControlName="studentAvgScore" placeholder="Средний балл"/>
     </label>
   </form>
 
-  <button class="add-button" (click)="add()">
+  <button class="add-student-button button" (click)="add()">
     {{buttonText}}
   </button>
 </div>

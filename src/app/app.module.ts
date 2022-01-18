@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { StudentsComponent } from './components/students/students.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { StudentDetailComponent } from './components/student-detail/student-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddStudentComponent } from './components/add-student/add-student.component';
 import { SortStudentsComponent } from './components/sort-students/sort-students.component';
@@ -16,7 +15,6 @@ import {DatePipe} from "@angular/common";
   declarations: [
     AppComponent,
     StudentsComponent,
-    StudentDetailComponent,
     AddStudentComponent,
     SortStudentsComponent,
     PopupComponent,

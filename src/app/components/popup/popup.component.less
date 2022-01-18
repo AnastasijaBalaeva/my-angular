@@ -7,14 +7,24 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: rgba(0,0,0, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
 
   &-wrapper {
     background-color: white;
-    padding: 16px;
+    padding: 32px;
+    width: 350px;
   }
+
   &-header {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  &-footer {
+    margin-top: 32px;
+    .button {
+      margin-right: 16px;
+    }
   }
 }

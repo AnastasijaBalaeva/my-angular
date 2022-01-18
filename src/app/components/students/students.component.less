@@ -9,13 +9,23 @@
   &-header {
     display: flex;
     align-items: center;
+    margin-bottom: 32px;
+
+    &-search {
+      width: 80%;
+    }
+
+    &-add {
+      padding-left: 32px;
+    }
+
   }
 
   &-wrapper {
     display: flex;
 
     &-filters {
-      padding-left: 16px;
+      padding-left: 32px;
       width: 20%;
     }
 
@@ -37,8 +47,16 @@
       border-color: #2c3a41;
       border-bottom: 8px solid white;
 
-      &:hover {
-        color: #2c3a41;
+      &.header {
+        background: #bfbfbf;
+        font-size: 12px;
+      }
+
+      &.checked {
+        background: #a0cc91;
+      }
+
+      &:hover{
         background-color: #e6e6e6;
       }
     }

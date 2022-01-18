@@ -1,4 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin-top: 0;
+}
+
 html, body {
+  font-size: 16px;
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: sans-serif;
+}
+
+.form{
+  &-label {
+    display: block;
+    margin-bottom: 16px;
+    width: 100%;
+  }
+
+  &-input {
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+  }
+}
+
+.button {
+  padding: 8px 16px;
+  cursor: pointer;
+
+  &-close {
+    background: none;
+    color: #333333;
+    border: none;
+  }
 }

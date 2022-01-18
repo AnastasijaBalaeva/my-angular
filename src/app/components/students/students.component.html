@@ -1,20 +1,29 @@
 <div class="students">
   <div class="students-header">
-    <h2 class="students-title">Мои студенты</h2>
-    <div class="students-add">
-      <button (click)="add()">Добавить студента</button>
+    <div class="students-header-search">
+      <input class="form-input" placeholder="Поиск" (input)="search($event)"/>
+    </div>
+    <div class="students-header-add">
+      <button class="button" (click)="add()">Добавить студента</button>
     </div>
   </div>
 
   <div class="students-wrapper">
     <div class="students-wrapper-container">
       <table class="students-list">
-        <tr *ngFor="let student of studentsList" class="students-list-row">
+        <tr class="students-list-row header">
+          <td>Id</td>
+          <td>ФИО</td>
+          <td>Дата рождения</td>
+          <td>Средний балл</td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let student of students" class="students-list-row" [class.checked]="student.checked">
           <td class="badge">
             {{student.id}}
           </td>
           <td class="students-list-name">
-            {{student.name}} {{student.surname}} {{student.patronymic}}
+            {{student.surname}} {{student.name}}  {{student.patronymic}}
           </td>
           <td>
             {{student.dateBirth | date : 'MMM d, y'}}
@@ -23,24 +32,23 @@
             {{student.avgScore}}
           </td>
           <td class="students-list-buttons">
-            <button class="edit" (click)="edit(student)">Редактировать</button>
-            <button class="delete" title="delete student" (click)="deleteStudent = student">x</button>
+            <button class="button" (click)="edit(student)">Редактировать</button>
+            <button class="button-close" title="delete student" (click)="deleteStudent = student">x</button>
           </td>
         </tr>
       </table>
     </div>
     <div class="students-wrapper-filters">
-      <app-filter
-        [students]="students"
-        (studentsChange)="this.studentsList = $event">
-      </app-filter>
+      <app-filter></app-filter>
     </div>
   </div>
 </div>
-<app-popup *ngIf="popupVisible" [caption]="'Добавить'" (submit)="popupVisible = false">
+<app-popup *ngIf="popupVisible" [caption]="'Добавить студента'" (submit)="popupVisible = false">
   <app-add-student [student]="student" (submitted)="addOrUpdate($event)"></app-add-student>
 </app-popup>
-<app-popup *ngIf="deleteStudent" [caption]="'Удалить'" (submit)="delete($event)" [confirmText]="'Да'"
-           [cancelText]="'Нет'"></app-popup>
+<app-popup *ngIf="deleteStudent" (submit)="delete($event)" [confirmText]="'Да'"
+           [cancelText]="'Нет'">
+  Удалить студента {{deleteStudent.surname}} {{deleteStudent.name}} ?
+</app-popup>
 
 

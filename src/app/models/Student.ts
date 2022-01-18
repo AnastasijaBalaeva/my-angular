@@ -5,6 +5,5 @@ export interface Student {
   patronymic: string;
   dateBirth: Date;
   avgScore:number;
-
-
+  checked?: boolean;
 }

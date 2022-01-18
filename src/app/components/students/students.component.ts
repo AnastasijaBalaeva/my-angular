@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-
 import {Student} from '../../models/Student';
 import {StudentService} from '../../services/student.service';
+import { STUDENTS } from '../../services/mock-students';
 
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.less']
 })
-export class StudentsComponent implements OnInit {
+export class StudentsComponent implements OnInit{
 
-  students: Student[] = [];
-  studentsList: Student[] = [];
+  students: Student[];
+  studentsList: Student[] = STUDENTS;
   student: Student;
   popupVisible: boolean = false;
   deleteStudent: Student;
@@ -20,23 +20,16 @@ export class StudentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getStudents();
-  }
-
-  getStudents(): void {
-    this.studentService.getStudents().subscribe(students => {
-      this.students = students;
-      this.studentsList = students;
-    });
+    this.studentService.students$.subscribe(students => this.students = students);
+    this.studentService.getStudents();
   }
 
   delete(event: boolean): void {
     if (event) {
-      this.students = this.students.filter(h => h.id !== this.deleteStudent.id);
-      this.studentService.deleteStudent(this.deleteStudent.id as number).subscribe(() => this.deleteStudent = null);
-    } else {
-      this.deleteStudent = null;
+      this.studentService.deleteStudent(this.deleteStudent.id);
     }
+
+    this.deleteStudent = null;
   }
 
 
@@ -52,15 +45,18 @@ export class StudentsComponent implements OnInit {
 
   addOrUpdate(student: Student) {
     if (this.student) {
-      this.studentService.updateStudent(student).subscribe(() => {
-        this.student = null;
-        const index = this.students.findIndex(item => item.id === student.id);
-        this.students[index] = student;
-        this.popupVisible = false;
-      })
+      this.studentService.updateStudent(student);
     } else {
-      this.studentService.addStudent(student).subscribe(() => this.popupVisible = false);
+      this.studentService.addStudent(student);
     }
+
+    this.popupVisible = false;
   }
 
+  search($event: Event): void {
+    const value = ($event.target as HTMLInputElement).value;
+    this.studentsList.map(student => {
+      student.checked = value?.length && student.name.toLowerCase().includes(value.toLowerCase());
+    })
+  }
 }

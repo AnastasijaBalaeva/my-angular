@@ -1,83 +1,73 @@
 import {Student} from '../models/Student';
-import {MessageService} from './message.service';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, map, tap} from 'rxjs/operators';
 import {Injectable} from "@angular/core";
-import {Observable, of} from 'rxjs';
+import { Subject } from 'rxjs';
 import {STUDENTS} from './mock-students';
+import { Filter, FilterItem } from '../components/filter/filter.component';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class StudentService {
-  private students: Student[] = STUDENTS;
-  constructor(private messageService: MessageService) {
+  private students = STUDENTS;
+  private studentsSubject$: Subject<Student[]> = new Subject<Student[]>();
+  public students$ = this.studentsSubject$.asObservable();
+
+  constructor() {
   }
 
-  private log(message: string) {
-    this.messageService.add(`HeroService: ${message}`);
+  getStudents(): void {
+    this.studentsSubject$.next(this.students);
   }
 
-  getStudents(): Observable<Student[]> {
-    return of(this.students)
-      .pipe(
-        tap(_ => this.log('fetched students')),
-        catchError(this.handleError<Student[]>('getStudents', [])));
+  searchStudent(search?: string): void {
+    this.students.forEach(student => {
+      student.checked = search?.length && student.name.toLowerCase().includes(search.toLowerCase());
+    });
+    this.studentsSubject$.next(this.students);
   }
 
-  getStudent(id: number): Observable<Student> {
-    return of(this.students.find(item => item.id === id)).pipe(
-      tap(_ => this.log(`fetched student id=${id}`)),
-      catchError(this.handleError<Student>(`getStudent id=${id}`))
-    );
-
-    /*   const student = STUDENTS.find(s=>s.id === id)!;
-       this.messageService.add('StudentsService: fetched students id=${id}')
-       return of(student)*/
+  getStudent(id: number): Student {
+    return this.students.find(item => item.id === id);
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
-
-  updateStudent(student: Student): Observable<Student> {
+  updateStudent(student: Student): void {
     const index = this.students.findIndex(item => item.id === student.id);
     this.students[index] = student;
-    return of(student).pipe(
-      tap(_ => this.log(`updated student id=${student.id}`)),
-      catchError(this.handleError<any>('updateStudent'))
-    );
+    this.studentsSubject$.next(this.students);
   }
 
-  /** POST: add a new student to the server */
-  addStudent(student: Student): Observable<Student> {
+  addStudent(student: Student): void {
     student.id = this.students.length + 1;
     this.students.push(student);
-    return of(student).pipe(
-      tap((newStudent: Student) => this.log(`added student w/ id=${newStudent.id}`)),
-      catchError(this.handleError<Student>('addStudent'))
-    );
+    this.studentsSubject$.next(this.students);
   }
 
-  deleteStudent(id: number): Observable<Student> {
-    const index = this.students.findIndex(item => item.id === id);
-    this.students.slice(index, 1);
-    return of(this.students[index]).pipe(
-      tap(_ => this.log(`deleted student id=${id}`)),
-      catchError(this.handleError<Student>('deleteStudent'))
-    );
+  deleteStudent(id: number): void {
+    this.students = this.students.filter(student => student.id !== id);
+    this.studentsSubject$.next(this.students);
+  }
+
+  filterStudents(filterValues: Filter): void {
+    const students = this.students.filter(student => {
+      return this.isFiltered(filterValues.date, student.dateBirth) && this.isFiltered(filterValues.number, student.avgScore);
+    });
+    this.studentsSubject$.next(students);
+  }
+
+  isFiltered(filterItem: FilterItem, value: number | Date): boolean {
+    if (!filterItem?.from && !filterItem?.to) {
+      return true;
+    }
+
+    if (!filterItem.to) {
+      return value >= filterItem.from;
+    }
+    if (!filterItem.from) {
+      return value <= filterItem.to;
+    }
+
+    return (value >= filterItem.from && value <= filterItem.to);
   }
 
 }

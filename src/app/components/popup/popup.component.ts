@@ -7,8 +7,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class PopupComponent implements OnInit {
   @Input() caption: string = "";
-  @Input() confirmText: string = "Принять";
-  @Input() cancelText: string = "Отменить";
+  @Input() confirmText: string = "";
+  @Input() cancelText: string = "";
 
   @Output() submit: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor() { }
