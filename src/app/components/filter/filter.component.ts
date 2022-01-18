@@ -31,4 +31,10 @@ export class FilterComponent implements OnInit, OnDestroy {
       to: this.form.get('to').value
     })
   }
+
+  clear(): void {
+    this.form.get('from').setValue('');
+    this.form.get('to').setValue('');
+    this.submit.emit({from: null, to: null});
+  }
 }
