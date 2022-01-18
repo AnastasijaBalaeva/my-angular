@@ -7,38 +7,32 @@
   </div>
 
   <div class="students-wrapper">
-    <table class="students-list">
-      <tr *ngFor="let student of students" class="students-list-row">
-        <td class="badge">
-          {{student.id}}
-        </td>
-        <td class="students-list-name">
-          <a routerLink="/detail/{{student.id}}">
+    <div class="students-wrapper-container">
+      <table class="students-list">
+        <tr *ngFor="let student of studentsList" class="students-list-row">
+          <td class="badge">
+            {{student.id}}
+          </td>
+          <td class="students-list-name">
             {{student.name}} {{student.surname}} {{student.patronymic}}
-          </a>
-        </td>
-        <td>
-          {{student.dateBirth | date : 'MMM d, y'}}
-        </td>
-        <td>
-          {{student.avgScore}}
-        </td>
-        <td class="students-list-buttons">
-          <button class="edit" (click)="edit(student)">Редактировать</button>
-          <button class="delete" title="delete student" (click)="deleteStudent = student">x</button>
-        </td>
-      </tr>
-    </table>
-    <div class="students-filters">
+          </td>
+          <td>
+            {{student.dateBirth | date : 'MMM d, y'}}
+          </td>
+          <td>
+            {{student.avgScore}}
+          </td>
+          <td class="students-list-buttons">
+            <button class="edit" (click)="edit(student)">Редактировать</button>
+            <button class="delete" title="delete student" (click)="deleteStudent = student">x</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="students-wrapper-filters">
       <app-filter
-        [title]="'Фильтр по дате'"
-        [type]="'date'"
-        (submit)="filterStudents($event, 'date')">
-      </app-filter>
-      <app-filter
-        [title]="'Фильтр по оценке'"
-        [type]="'number'"
-        (submit)="filterStudents($event, 'number')">
+        [students]="students"
+        (studentsChange)="this.studentsList = $event">
       </app-filter>
     </div>
   </div>

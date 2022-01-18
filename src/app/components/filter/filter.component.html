@@ -1,25 +1,52 @@
 <div class="filter">
-  <form [formGroup]="form">
-    <div *ngIf="title" class="filter-title">{{title}}</div>
-    <div class="filter-row">
+  <div *ngIf="title" class="filter-title">{{title}}</div>
+  <div class="filter-row" [formGroup]="dateForm">
+    <div class="filter-title">
+      По дате
+    </div>
+    <div class="filter-controls">
       <label class="filter-label">
         <input
           formControlName="from"
-          [type]="type === 'date' ? 'date' : 'number'"
+          type="date"
           class="filter-input"
-          (input)="submitValue()"
+          (input)="filterStudents()"
         />
       </label>
       <span class="filter-separator">-</span>
       <label class="filter-label">
         <input
           formControlName="to"
-          [type]="type === 'date' ? 'date' : 'number'"
+          type="date"
           class="filter-input"
-          (input)="submitValue()"
+          (input)="filterStudents()"
         />
       </label>
     </div>
-  </form>
+  </div>
+  <div class="filter-row" [formGroup]="numberForm">
+    <div class="filter-title">
+      По оценке
+    </div>
+    <div class="filter-controls">
+      <label class="filter-label">
+        <input
+          formControlName="from"
+          type="number"
+          class="filter-input"
+          (input)="filterStudents()"
+        />
+      </label>
+      <span class="filter-separator">-</span>
+      <label class="filter-label">
+        <input
+          formControlName="to"
+          type="number"
+          class="filter-input"
+          (input)="filterStudents()"
+        />
+      </label>
+    </div>
+  </div>
   <button class="filter-clear" (click)="clear()">Очистить</button>
 </div>

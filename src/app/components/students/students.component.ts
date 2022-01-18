@@ -63,32 +63,4 @@ export class StudentsComponent implements OnInit {
     }
   }
 
-  filterStudents(value: {from: string, to: string}, type: string): void {
-    let valueFrom: Date | Number;
-    let valueTo: Date | Number;
-
-    if (type === 'date') {
-      valueFrom = new Date(value.from);
-      valueTo = new Date(value.to);
-    } else if (type === 'number') {
-      valueFrom = +value.from;
-      valueTo = +value.to;
-    }
-
-    this.students = this.studentsList.filter(student => {
-      let studentValue = type === 'date' ? student.dateBirth : student.avgScore;
-      if (!value.to) {
-        return studentValue >= valueFrom;
-      }
-      if (!value.from) {
-        return studentValue <= valueTo;
-      }
-
-      if (!value.from && !value.to) {
-        return true;
-      }
-
-      return (studentValue >= valueFrom && studentValue <= valueTo);
-    })
-  }
 }
